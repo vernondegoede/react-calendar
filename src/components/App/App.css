@@ -1,0 +1,123 @@
+body {
+  background-color: #4A5170;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.calendar {
+  width: 70%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.calendar--appointments,
+.calendar--new-appointment {
+  float: left;
+}
+
+.calendar--new-appointment {
+  width: 30%;
+}
+
+.calendar--appointments {
+  width: 70%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/**
+.today
+*/
+
+.today {
+  background-color: #FFFFFF;
+  position: relative;
+  height: 600px;
+}
+
+.today--header {
+  border-bottom: 1px solid #DADADA;
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.today--date {
+  color: #3A3A3A;
+  font-size: 20px;
+  vertical-align: middle;
+  padding-left: 40px;
+  margin: 0;
+}
+
+.today--container {
+  max-height: calc(100% - 61px);
+  overflow: scroll;
+  position: relative;
+}
+
+/**
+.appointment-item
+*/
+
+.appointment-item {
+  background: #FF6255;
+  border-radius: 4px;
+  border: 1px solid #FF6255;
+  border-radius: 4px;
+  color: #FFCDC9;
+  font-size: 13px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  position: absolute;
+  width: 100%;
+}
+
+.appointment-item--description {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  color: #FFC4BF;
+}
+
+/**
+.appointment-form
+*/
+
+.appointment-form {
+  padding: 0;
+  position: absolute;
+  right: 0;
+  height: calc(100% - 40px);
+  top: 20px;
+
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/**
+.clearfix
+*/
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix {
+  display: inline-block;
+}
+
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */

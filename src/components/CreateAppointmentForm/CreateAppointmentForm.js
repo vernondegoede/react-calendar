@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import './CreateAppointmentForm.css';
 
 export default class extends Component {
   render () {
     return (
-      <div>Hey</div>
+      <form>
+        <label>Title</label>
+      </form>
     )
   }
 }

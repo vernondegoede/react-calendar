@@ -1,0 +1,6 @@
+.appointment-list {
+  position: absolute;
+  left: 80px;
+  top: 40px;
+  width: calc(100% - 120px);
+}

@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
+import './AppointmentList.css';
 
-class Appointment extends Component {
+class AppointmentItem extends Component {
   render () {
-    console.log('this.props', this.props);
-
     return (
-      <div>
+      <div className="appointment-item">
         <strong>{ this.props.appointment.title }</strong>
-        <p>{ this.props.appointment.description }</p>
+        <p className="appointment-item--description">{ this.props.appointment.description }</p>
       </div>
     )
   }
 }
 
-export default class DayView extends Component {
+export default class AppointmentList extends Component {
   render () {
     let rows = [];
     this.props.appointments.forEach(appointment => {
-      rows.push(<Appointment key={appointment.id} appointment={appointment} />)
+      rows.push(<AppointmentItem key={appointment.id} appointment={appointment} />)
     });
 
     return (
-      <div className="todays-appointments">{ rows }</div>
+      <div className="appointment-list">{ rows }</div>
     )
   }
 }

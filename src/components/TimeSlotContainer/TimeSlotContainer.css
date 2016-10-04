@@ -1,0 +1,4 @@
+.time-slot-container {
+  margin: 40px 0 0 0;
+  width: calc(100% - 40px);
+}
