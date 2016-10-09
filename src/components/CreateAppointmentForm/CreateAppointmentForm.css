@@ -1,3 +1,23 @@
-.appointment-form {
+.appointment-form{
   background-color: #F2F2F2;
+}
+
+.appointment-form__inner {
+  padding: 20px;
+}
+
+.appointment-form .form-group {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.appointment-form .form-group label {
+  display: block;
+}
+
+.appointment-form .form-group input,
+.appointment-form .form-group textarea,
+.appointment-form .form-group button {
+  width: 100%;
+  display: block;
 }

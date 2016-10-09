@@ -67,8 +67,16 @@ body {
 */
 
 .appointment-item {
-  background: #FF6255;
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  opacity: .9;
+}
+
+.appointment-item .inner {
   border-radius: 4px;
+
+  background: #FF6255;
   border: 1px solid #FF6255;
   border-radius: 4px;
   color: #FFCDC9;
@@ -76,8 +84,12 @@ body {
   padding: 10px;
   box-sizing: border-box;
 
-  position: absolute;
-  width: 100%;
+  width: calc(100% - 10px);
+  margin-left: 5px;
+}
+
+.appointment-item.focussed {
+  opacity: 1;
 }
 
 .appointment-item--description {

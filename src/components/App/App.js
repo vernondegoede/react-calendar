@@ -1,20 +1,40 @@
 import React, { Component } from 'react';
-import dummyAppointments from './../../data';
+import appointments from './../../data';
 import TimeSlotContainer from './../TimeSlotContainer/TimeSlotContainer';
 import DayView from './../DayView/DayView';
 import CreateAppointmentForm from './../CreateAppointmentForm/CreateAppointmentForm';
 import Header from './../Header/Header';
+import moment from 'moment';
 
 import './App.css';
-
-let appointments = dummyAppointments;
 
 export default class App extends Component {
   constructor (props) {
     super(props);
+
     this.state = {
-      appointments
+      appointments,
+      date: moment().format('D MMMM Y'),
+      newAppointment: {
+        title: '',
+        start_time: '',
+        end_time: '',
+        description: ''
+      }
     };
+    this.addAppointment = this.addAppointment.bind(this);
+  }
+
+  addAppointment (newAppointment) {
+    let lastAppointment = [...this.state.appointments].pop();
+    newAppointment.id = ( lastAppointment.id + 1);
+
+    this.setState({
+      appointments: [
+        ...this.state.appointments,
+        newAppointment
+      ]
+    });
   }
 
   render () {
@@ -24,7 +44,7 @@ export default class App extends Component {
         <div className="wrapper clearfix">
           <div className="today calendar--appointments">
             <div className="today--header">
-              <h2 className="today--date">1 augustus 2016</h2>
+              <h2 className="today--date">{ this.state.date }</h2>
             </div>
             <div className="today--container">
               <TimeSlotContainer hours={24} />
@@ -32,7 +52,8 @@ export default class App extends Component {
             </div>
           </div>
           <div className="calendar--new-appointment appointment-form">
-            <CreateAppointmentForm />
+            <CreateAppointmentForm ref="" onSubmit={this.addAppointment}
+              appointment={this.state.newAppointment} />
           </div>
         </div>
       </div>
