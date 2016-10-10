@@ -8,6 +8,8 @@ import moment from 'moment';
 
 import './App.css';
 
+const HOURS_IN_DAY = 25;
+
 export default class App extends Component {
   constructor (props) {
     super(props);
@@ -47,8 +49,8 @@ export default class App extends Component {
               <h2 className="today--date">{ this.state.date }</h2>
             </div>
             <div className="today--container">
-              <TimeSlotContainer hours={24} />
-              <DayView appointments={this.state.appointments} />
+              <TimeSlotContainer hours={HOURS_IN_DAY} />
+              <DayView hours={HOURS_IN_DAY} appointments={this.state.appointments} />
             </div>
           </div>
           <div className="calendar--new-appointment appointment-form">

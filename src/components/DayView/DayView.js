@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './AppointmentList.css';
 import moment from 'moment';
+var findWhere = require('lodash.findwhere');
 
 const ROW_OFFSET = 50;
 
@@ -76,7 +77,8 @@ class AppointmentItem extends Component {
     let width = 100 / ( overlaps.length);
     let itemHeight = this.calculateHeight(appointment.start_time, appointment.end_time) + 'px';
     let innerStyle = {
-      height: (isFocussed) ? 'auto' : itemHeight,
+      maxHeight: (isFocussed) ? 'auto' : itemHeight,
+      minHeight: itemHeight,
     }
     let outerStyle = {
       ...innerStyle,
@@ -109,7 +111,70 @@ export default class AppointmentList extends Component {
     let style = {
       top: ROW_OFFSET
     };
-    let rows = this.props.appointments.map(appointment => {
+    // let hours = [];
+    // let itemsInRow = 0;
+    // let appointments = this.props.appointments;
+    //
+    // for (let hour = 0; hour < this.props.hours; hour++) {
+    //   hours.push({
+    //     hour,
+    //     appointmentsInHour: [],
+    //     itemsInRow
+    //   });
+    // }
+    //
+    // console.log('hours', hours);
+    //
+    // hours.forEach((item) => {
+    //   let hourInMinutes = ( item.hour * 60 );
+    //   let itemsPerHour = 0;
+    //   appointments.forEach((appointment) => {
+    //     if (appointment.start_time <= hourInMinutes && appointment.end_time >= hourInMinutes) {
+    //       itemsPerHour++;
+    //       item.appointmentsInHour.push(appointment.id);
+    //     }
+    //     appointment.overlappingItems = 0;
+    //   });
+    //
+    //   item.itemsInRow = itemsPerHour;
+    // });
+    //
+    // hours.forEach((item) => {
+    //   let hourInMinutes = ( item.hour * 60 );
+    //
+    //   appointments.forEach((appointment) => {
+    //     if (appointment.start_time <= hourInMinutes && appointment.end_time >= hourInMinutes) {
+    //       if (item.itemsInRow > appointment.overlappingItems) {
+    //         appointment.overlappingItems = item.itemsInRow;
+    //       }
+    //     }
+    //   });
+    // });
+    //
+    // hours.forEach((item) => {
+    //   let shortestAppoinementID;
+    //   let previousMatchingAppointment;
+    //   item.appointmentsInHour.forEach((appointmentID) => {
+    //     let matchingAppointment = findWhere(appointments, { id: appointmentID});
+    //
+    //     if(!previousMatchingAppointment) {
+    //       shortestAppoinementID = matchingAppointment.id;
+    //     }
+    //
+    //     if(previousMatchingAppointment) {
+    //       if(previousMatchingAppointment.overlappingItems > matchingAppointment.overlappingItems){
+    //         shortestAppoinementID = matchingAppointment.id;
+    //       }
+    //     }
+    //     previousMatchingAppointment = matchingAppointment;
+    //     console.log('matchingAppointment', matchingAppointment);
+    //   });
+    // });
+
+    console.log('hours', hours);
+    console.log('appointments', appointments);
+
+    let rows = appointments.map(appointment => {
       return(
         <AppointmentItem key={appointment.id} appointment={appointment} {...this.props} />
       )
