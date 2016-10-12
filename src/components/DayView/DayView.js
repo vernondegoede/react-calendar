@@ -44,12 +44,6 @@ class AppointmentItem extends Component {
     return startTime.asMinutes();
   }
 
-  calculateOffsetLeft (overlaps, width) {
-    if (overlaps.length === 0) {
-      return 0;
-    }
-  }
-
   render () {
     let appointment = this.props.appointment;
     let overlaps =  appointment.overlappingItems;
@@ -59,6 +53,8 @@ class AppointmentItem extends Component {
     let width = 100 / overlaps;
     let itemHeight = this.calculateHeight(appointment.start_time, appointment.end_time) + 'px';
 
+    let left = ( width * appointment.position );
+
     let innerStyle = {
       height: itemHeight
     }
@@ -66,7 +62,7 @@ class AppointmentItem extends Component {
       ...innerStyle,
       top: this.calculateOffsetTop(appointment.start_time) + 'px',
       width: width + '%',
-      left: this.calculateOffsetLeft(overlaps, width) + '%'
+      left: left + '%'
     }
 
     return (

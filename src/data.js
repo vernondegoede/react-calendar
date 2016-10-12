@@ -3,7 +3,7 @@ export default [
     id: 1,
     title: 'Sprint retrospective',
     start_time: 690, // 11:30
-    end_time: 720, // 12:00
+    end_time: 790, // 12:00
     description: 'Be there or be square'
   },
   {

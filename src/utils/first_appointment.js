@@ -1,6 +1,4 @@
 export default (appointments) => {
-  console.log('appointments', appointments);
-
   let startTimes = appointments.map(item => item.start_time);
   let firstStartTime = startTimes.reduce((a, b) => {
     return Math.min(a, b)
