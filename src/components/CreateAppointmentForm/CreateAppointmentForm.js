@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import './CreateAppointmentForm.css';
 
 export default class extends Component {
   static propTypes = {
-    onSubmit: React.PropTypes.func.isRequired
+    onSubmit: React.PropTypes.func.isRequired,
+    appointment: React.PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -15,6 +17,12 @@ export default class extends Component {
 
   handleSubmit (e) {
     e.preventDefault();
+
+    this.setState({
+      start_time: moment.duration(this.state.start_time, 'hours').asMinutes(),
+      end_time: moment.duration(this.state.end_time, 'hours').asMinutes()
+    });
+
     this.props.onSubmit(this.state);
     this.setState(this.props.appointment);
   }

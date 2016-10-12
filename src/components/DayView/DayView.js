@@ -1,38 +1,29 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+
 import './AppointmentList.css';
 import moment from 'moment';
-var findWhere = require('lodash.findwhere');
+
+import parseAppointments from './../../utils/parse_appointments';
+import getFirstAppointment from './../../utils/first_appointment';
 
 const ROW_OFFSET = 50;
 
 class AppointmentItem extends Component {
   getOverlaps (currentAppointment, allAppointments) {
-    let currentStartTime = this.getMinutesOffset(currentAppointment.start_time);
-    let currentEndTime = this.getMinutesOffset(currentAppointment.end_time);
+    let currentStartTime = currentAppointment.start_time;
+    let currentEndTime = currentAppointment.end_time;
 
     return allAppointments.filter((appointment) => {
-      let startTime = this.getMinutesOffset(appointment.start_time);
-      let endTime = this.getMinutesOffset(appointment.end_time);
+      let startTime = appointment.start_time;
+      let endTime = appointment.end_time;
 
       return (currentStartTime < endTime) && (startTime < currentEndTime);
     });
   }
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      focussed: false
-    }
-
-    this.showInFront = this.showInFront.bind(this);
-  }
-
   calculateHeight (startTime = '00:00', endTime = '00:00') {
-    startTime = this.getMinutesOffset(startTime);
-    endTime = this.getMinutesOffset(endTime);
     let difference = endTime - startTime;
-
     return ( difference / 60) * ROW_OFFSET;
   }
 
@@ -43,9 +34,8 @@ class AppointmentItem extends Component {
   }
 
   calculateOffsetTop (time = '00:00') {
-    let timeInMinutes = this.getMinutesOffset(time);
+    let timeInMinutes = this.props.appointment.start_time;
     let offsetTop = ( timeInMinutes / 60) * ROW_OFFSET;
-
     return offsetTop.toFixed(2);
   }
 
@@ -54,31 +44,23 @@ class AppointmentItem extends Component {
     return startTime.asMinutes();
   }
 
-  showInFront () {
-    this.setState({
-      in_front: true
-    });
-  }
-
   calculateOffsetLeft (overlaps, width) {
     if (overlaps.length === 0) {
       return 0;
     }
-
-    let positionedOverlappingComponents = this.getAlreadyPositionedOverlaps(overlaps);
-    return ( positionedOverlappingComponents.length * width );
   }
 
   render () {
     let appointment = this.props.appointment;
-    let overlaps =  this.getOverlaps(appointment, this.props.appointments);
-    let isFocussed = this.state.focussed;
+    let overlaps =  appointment.overlappingItems;
 
-    let width = 100 / ( overlaps.length);
+    console.log('appointment', appointment);
+
+    let width = 100 / overlaps;
     let itemHeight = this.calculateHeight(appointment.start_time, appointment.end_time) + 'px';
+
     let innerStyle = {
-      maxHeight: (isFocussed) ? 'auto' : itemHeight,
-      minHeight: itemHeight,
+      height: itemHeight
     }
     let outerStyle = {
       ...innerStyle,
@@ -86,17 +68,10 @@ class AppointmentItem extends Component {
       width: width + '%',
       left: this.calculateOffsetLeft(overlaps, width) + '%'
     }
-    let className = 'appointment-item';
-
-    if (isFocussed) {
-      className += ' focussed';
-    }
 
     return (
-      <div className={className}
-        style={ outerStyle }
-        onMouseEnter={e => this.setState({ focussed: true })}
-        onMouseLeave={e => this.setState({ focussed: false })}>
+      <div className='appointment-item'
+        style={ outerStyle }>
         <div className="inner" style={ innerStyle }>
           <strong>{ appointment.title }</strong>
           <p className="appointment-item--description">{ appointment.description }</p>
@@ -107,81 +82,34 @@ class AppointmentItem extends Component {
 }
 
 export default class AppointmentList extends Component {
+  componentDidMount () {
+    this.ensureFirstAppointmentVisible();
+  }
+
+  ensureFirstAppointmentVisible () {
+    ReactDOM.findDOMNode(this.firstAppointmentRef).scrollIntoView();
+  }
+
   render () {
     let style = {
       top: ROW_OFFSET
     };
-    // let hours = [];
-    // let itemsInRow = 0;
-    // let appointments = this.props.appointments;
-    //
-    // for (let hour = 0; hour < this.props.hours; hour++) {
-    //   hours.push({
-    //     hour,
-    //     appointmentsInHour: [],
-    //     itemsInRow
-    //   });
-    // }
-    //
-    // console.log('hours', hours);
-    //
-    // hours.forEach((item) => {
-    //   let hourInMinutes = ( item.hour * 60 );
-    //   let itemsPerHour = 0;
-    //   appointments.forEach((appointment) => {
-    //     if (appointment.start_time <= hourInMinutes && appointment.end_time >= hourInMinutes) {
-    //       itemsPerHour++;
-    //       item.appointmentsInHour.push(appointment.id);
-    //     }
-    //     appointment.overlappingItems = 0;
-    //   });
-    //
-    //   item.itemsInRow = itemsPerHour;
-    // });
-    //
-    // hours.forEach((item) => {
-    //   let hourInMinutes = ( item.hour * 60 );
-    //
-    //   appointments.forEach((appointment) => {
-    //     if (appointment.start_time <= hourInMinutes && appointment.end_time >= hourInMinutes) {
-    //       if (item.itemsInRow > appointment.overlappingItems) {
-    //         appointment.overlappingItems = item.itemsInRow;
-    //       }
-    //     }
-    //   });
-    // });
-    //
-    // hours.forEach((item) => {
-    //   let shortestAppoinementID;
-    //   let previousMatchingAppointment;
-    //   item.appointmentsInHour.forEach((appointmentID) => {
-    //     let matchingAppointment = findWhere(appointments, { id: appointmentID});
-    //
-    //     if(!previousMatchingAppointment) {
-    //       shortestAppoinementID = matchingAppointment.id;
-    //     }
-    //
-    //     if(previousMatchingAppointment) {
-    //       if(previousMatchingAppointment.overlappingItems > matchingAppointment.overlappingItems){
-    //         shortestAppoinementID = matchingAppointment.id;
-    //       }
-    //     }
-    //     previousMatchingAppointment = matchingAppointment;
-    //     console.log('matchingAppointment', matchingAppointment);
-    //   });
-    // });
+    let appointments = parseAppointments(this.props.appointments, this.props.hours);
+    let firstAppointment = getFirstAppointment(this.props.appointments);
 
-    console.log('hours', hours);
-    console.log('appointments', appointments);
+    console.log('firstAppointment', firstAppointment);
 
-    let rows = appointments.map(appointment => {
-      return(
-        <AppointmentItem key={appointment.id} appointment={appointment} {...this.props} />
+    let rows = appointments.map((appointment) => {
+      let isFirstAppointment = ( appointment.id === firstAppointment.id );
+
+      return(<AppointmentItem key={appointment.id}
+        // Reference to the first appointment in the list
+        ref={ isFirstAppointment ? ( (ref) => this.firstAppointmentRef = ref ) : false }
+        appointment={appointment} {...this.props} />);
+      });
+
+      return (
+        <div className="appointment-list" style={style}>{ rows }</div>
       )
-    });
-
-    return (
-      <div className="appointment-list" style={style}>{ rows }</div>
-    )
+    }
   }
-}
