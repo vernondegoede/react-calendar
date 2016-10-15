@@ -41,6 +41,9 @@ const Inner = styled.div`
 
 const Title = styled.strong`
   font-weight: 400;
+  max-width: calc(100% - 100px);
+  overflow: hidden;
+  display: block;
 `
 
 const Description = styled.div`
@@ -57,6 +60,16 @@ const DeleteButton = styled.div`
   position: absolute;
   right: 10px;
   top: 10px;
+  display: ${ props => ( props.focussed ) ? 'block' : 'none' }
+  cursor: pointer;
+`
+
+const TimeSpan = styled.span`
+  width: 80px;
+  position: absolute;
+  right: 10px;
+  top: 13px;
+  display: ${ props => ( props.focussed ) ? 'none' : 'true' }
 `
 
 export {
@@ -64,5 +77,6 @@ export {
   Inner,
   Title,
   Description,
-  DeleteButton
+  DeleteButton,
+  TimeSpan
 }
