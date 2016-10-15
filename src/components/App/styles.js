@@ -6,6 +6,7 @@ const CalendarWrapper = styled.div`
   position: relative;
   @media (max-width: 1000px) {
     width: 90%;
+    min-width: 730px;
   }
 `
 

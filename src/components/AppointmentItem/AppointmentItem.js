@@ -65,11 +65,12 @@ export default class AppointmentItem extends Component {
 
     return (
       <Wrapper { ...wrapperStyle }
+        focussed={this.state.focussed}
         onMouseEnter={this.onMouseEnter}
         onMouseLeave={this.onMouseLeave}>
-        <Inner { ...innerStyle }>
+        <Inner { ...innerStyle } focussed={this.state.focussed}>
           <header>
-            <Title>
+            <Title focussed={this.state.focussed}>
               { appointment.title }
             </Title>
             <TimeSpan focussed={this.state.focussed}>

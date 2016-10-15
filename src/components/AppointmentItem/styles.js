@@ -4,8 +4,9 @@ const Wrapper = styled.div`
   position: absolute;
   width: 100%;
   overflow: hidden;
-  opacity: .9;
-  height: ${props => props.height}px;
+  opacity: ${props => props.focussed ? '1' : '.9'};
+  height: ${props => props.focussed ? 'auto' : props.height + 'px'};
+  min-height: ${props => props.height}px;
   top: ${props => props.top}px;
   width: ${props => props.width}%;
   left: ${props => props.left}%;
@@ -22,7 +23,8 @@ const Inner = styled.div`
   box-sizing: border-box;
   width: calc(100% - 10px);
   margin-left: 5px;
-  height: ${props => props.height}px;
+  height: ${props => props.focussed ? 'auto' : props.height + 'px'};
+  min-height: ${props => props.height}px;
 
   &:before {
     content: '';
@@ -31,7 +33,7 @@ const Inner = styled.div`
     position: absolute;
     left: 0;
     top: 0;
-    background: linear-gradient(transparent 70%, rgba(227, 70, 65, 100));
+    background: ${props => props.focussed ? 'none' : 'linear-gradient(transparent 70%, rgba(227, 70, 65, 100))'};
     width: 90%;
     left: 5%;
     border-bottom-left-radius: 4px;
@@ -41,9 +43,11 @@ const Inner = styled.div`
 
 const Title = styled.strong`
   font-weight: 400;
-  max-width: calc(100% - 100px);
+  max-width: ${props => props.focussed ? '90%' : 'calc(100% - 85px)'};
   overflow: hidden;
   display: block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `
 
 const Description = styled.div`
@@ -59,8 +63,8 @@ const DeleteButton = styled.div`
   background: transparent url('${props => props.image}') no-repeat center center;
   position: absolute;
   right: 10px;
-  top: 10px;
-  display: ${ props => ( props.focussed ) ? 'block' : 'none' }
+  top: 12px;
+  display: ${ props => props.focussed ? 'block' : 'none' }
   cursor: pointer;
 `
 
@@ -68,7 +72,7 @@ const TimeSpan = styled.span`
   width: 80px;
   position: absolute;
   right: 10px;
-  top: 13px;
+  top: 11px;
   display: ${ props => ( props.focussed ) ? 'none' : 'true' }
 `
 
