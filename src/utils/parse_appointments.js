@@ -1,10 +1,9 @@
 import mapAppointmentsDuration from './calculate_duration';
+import setHoursToMinutes from './time_converter';
 
 const mapOverlappingAppointments = appointments => {
   appointments.forEach(currentAppointment => {
     currentAppointment.position = -1;
-
-    console.log('currentAppointment', currentAppointment);
 
     appointments.forEach(appointment => {
       if (currentAppointment.start_time < appointment.end_time &&
@@ -19,8 +18,21 @@ const mapOverlappingAppointments = appointments => {
     return appointments;
   };
 
+  const modifyAppointmentTimes = appointment => {
+    appointment.start_time = setHoursToMinutes(appointment.start_time_hours);
+    appointment.end_time = setHoursToMinutes(appointment.end_time_hours);
+
+    console.log('appointment', appointment);
+
+    return appointment;
+  };
+
   export default (appointments = [], hoursInDay = 24) => {
     let hours = [];
+
+    appointments = appointments.map(appointment => {
+      return modifyAppointmentTimes(appointment);
+    });
 
     for (let hour = 0; hour < hoursInDay; hour++) {
       hours.push({

@@ -2,9 +2,20 @@ import React, { Component } from 'react';
 import './AppointmentItem.css';
 
 export default class AppointmentItem extends Component {
+  static propTypes = {
+    removeAppointment: React.PropTypes.func.isRequired,
+    appointment: React.PropTypes.object,
+    row_height: React.PropTypes.number.isRequired
+  }
+
+  constructor (props) {
+    super(props);
+    this.removeAppointment = this.removeAppointment.bind(this);
+  }
+
   calculateHeight (startTime = '00:00', endTime = '00:00') {
-    let difference = endTime - startTime;
-    return ( difference / 60) * this.props.row_height;
+    let { duration } = this.props.appointment;
+    return ( duration / 60) * this.props.row_height;
   }
 
   calculateOffsetTop (time = '00:00') {
@@ -13,11 +24,15 @@ export default class AppointmentItem extends Component {
     return offsetTop.toFixed(2);
   }
 
-  render () {
-    let appointment = this.props.appointment;
-    let overlaps =  appointment.overlappingItems;
+  removeAppointment () {
+    this.props.removeAppointment(this.props.appointment.id);
+  }
 
-    let width = 100 / overlaps;
+  render () {
+    let { appointment } = this.props;
+    let { overlappingItems } = appointment;
+
+    let width = 100 / overlappingItems;
     let itemHeight = this.calculateHeight(appointment.start_time, appointment.end_time) + 'px';
 
     let left = ( width * appointment.position );
@@ -25,6 +40,7 @@ export default class AppointmentItem extends Component {
     let innerStyle = {
       height: itemHeight
     }
+
     let outerStyle = {
       ...innerStyle,
       top: this.calculateOffsetTop(appointment.start_time) + 'px',
@@ -40,9 +56,7 @@ export default class AppointmentItem extends Component {
             <strong className="title">
               { appointment.title }
             </strong>
-            <div className="remove-button">
-
-            </div>
+            <div className="remove-button" onClick={this.removeAppointment}></div>
           </header>
           <p className="appointment-item--description">{ appointment.description }</p>
         </div>

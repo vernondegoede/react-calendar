@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
-import './AppointmentList.css';
 import AppointmentItem from './../AppointmentItem/AppointmentItem';
-
-import parseAppointments from './../../utils/parse_appointments';
 import getFirstAppointment from './../../utils/first_appointment';
+import './AppointmentList.css';
 
 export default class AppointmentList extends Component {
   componentDidMount () {
@@ -13,6 +10,10 @@ export default class AppointmentList extends Component {
   }
 
   ensureFirstAppointmentVisible () {
+    if (!this.firstAppointmentRef) {
+      return false;
+    }
+
     ReactDOM.findDOMNode(this.firstAppointmentRef).scrollIntoView();
   }
 
@@ -20,10 +21,9 @@ export default class AppointmentList extends Component {
     let style = {
       top: this.props.row_height
     };
-    let appointments = parseAppointments(this.props.appointments, this.props.hours);
     let firstAppointment = getFirstAppointment(this.props.appointments);
 
-    let rows = appointments.map((appointment) => {
+    let rows = this.props.appointments.map((appointment) => {
       let isFirstAppointment = ( appointment.id === firstAppointment.id );
 
       return(<AppointmentItem key={appointment.id}

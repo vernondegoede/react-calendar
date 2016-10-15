@@ -4,9 +4,7 @@ import './CreateAppointmentForm.css';
 export default class extends Component {
   static propTypes = {
     onSubmit: React.PropTypes.func.isRequired,
-    appointment: React.PropTypes.object.isRequired,
-    start_time: React.PropTypes.number,
-    end_time: React.PropTypes.number
+    appointment: React.PropTypes.object.isRequired
   }
 
   constructor (props) {
@@ -35,19 +33,19 @@ export default class extends Component {
         </div>
 
         <div className="form-group">
-          <label htmlFor="starttime">Start time</label>
-          <input type="time" name="start_time" id="start_time"
+          <label htmlFor="start_time_hours">Start time</label>
+          <input type="time" name="start_time_hours" id="start_time_hours"
             className="form-control"
-            onChange={ e => this.setState({start_time: e.currentTarget.value}) }
-            value={ this.state.start_time } />
+            onChange={ e => this.setState({start_time_hours: e.currentTarget.value}) }
+            value={ this.state.start_time_hours } />
         </div>
 
         <div className="form-group">
-          <label htmlFor="end_time">End time</label>
-          <input type="time" name="end_time" id="end_time"
+          <label htmlFor="end_time_hours">End time</label>
+          <input type="time" name="end_time_hours" id="end_time_hours"
             className="form-control"
-            onChange={ e => this.setState({end_time: e.currentTarget.value}) }
-            value={ this.state.end_time } />
+            onChange={ e => this.setState({end_time_hours: e.currentTarget.value}) }
+            value={ this.state.end_time_hours } />
         </div>
 
         <div className="form-group">
