@@ -23,7 +23,7 @@ describe ('overlapping appointments', () => {
     let positionedOverlaps = positionOverlaps(appointments);
     let mappedPositions = positionedOverlaps.map(i => i.position);
     let expectedPositions = [1, 2, 0];
-
+    
     expect(mappedPositions).toEqual(expectedPositions);
   });
 });
