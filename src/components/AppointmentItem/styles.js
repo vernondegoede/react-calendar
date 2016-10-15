@@ -5,10 +5,10 @@ const Wrapper = styled.div`
   width: 100%;
   overflow: hidden;
   opacity: .9;
-  height: ${props => props.height};
-  top: ${props => props.top};
-  width: ${props => props.width};
-  left: ${props => props.left};
+  height: ${props => props.height}px;
+  top: ${props => props.top}px;
+  width: ${props => props.width}%;
+  left: ${props => props.left}%;
 `
 
 const Inner = styled.div`
@@ -22,7 +22,7 @@ const Inner = styled.div`
   box-sizing: border-box;
   width: calc(100% - 10px);
   margin-left: 5px;
-  height: ${props => props.height};
+  height: ${props => props.height}px;
 
   &:before {
     content: '';

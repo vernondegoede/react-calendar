@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-
-import './TimeSlotRow.css';
+import { TimeSlot, Hour } from './styles';
 
 export default class TimeSlotRow extends Component {
   static propTypes = {
@@ -14,11 +13,11 @@ export default class TimeSlotRow extends Component {
     });
 
     return (
-      <div className='time-slot'>
-        <span className='time-slot--hour'>
+      <TimeSlot>
+        <Hour>
           {hour.format('HH:mm')}
-        </span>
-      </div>
+        </Hour>
+      </TimeSlot>
     )
   }
 }

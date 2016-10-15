@@ -35,14 +35,14 @@ export default class AppointmentItem extends Component {
     let width = 100 / overlappingItems;
 
     let innerStyle = {
-      height: this.calculateHeight(appointment.start_time, appointment.end_time) + 'px'
+      height: this.calculateHeight(appointment.start_time, appointment.end_time)
     }
 
     let wrapperStyle = {
       ...innerStyle,
-      top: this.calculateOffsetTop(appointment.start_time) + 'px',
-      width: width + '%',
-      left: ( width * appointment.position ) + '%'
+      top: this.calculateOffsetTop(appointment.start_time),
+      width,
+      left: ( width * appointment.position )
     }
 
     return (

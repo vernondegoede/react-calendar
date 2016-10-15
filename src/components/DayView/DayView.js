@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import AppointmentItem from './../AppointmentItem/AppointmentItem';
 import getFirstAppointment from './../../utils/first_appointment';
-import './AppointmentList.css';
+
+import { Wrapper } from './styles';
 
 export default class AppointmentList extends Component {
   componentDidMount () {
@@ -33,7 +34,9 @@ export default class AppointmentList extends Component {
       });
 
       return (
-        <div className="appointment-list" style={style}>{ rows }</div>
+        <Wrapper {...style}>
+          { rows }
+        </Wrapper>
       )
     }
   }

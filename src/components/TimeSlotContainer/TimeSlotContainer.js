@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TimeSlotRow from './../TimeSlotRow/TimeSlotRow';
-import './TimeSlotContainer.css';
+import { Container } from './styles';
 
 export default class TimeSlots extends Component {
   render () {
@@ -10,9 +10,9 @@ export default class TimeSlots extends Component {
     }
 
     return (
-      <div className='time-slot-container'>
+      <Container>
       {timeSlotsContainer}
-      </div>
+      </Container>
     )
   }
 }

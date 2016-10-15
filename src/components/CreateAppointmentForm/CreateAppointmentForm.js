@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './CreateAppointmentForm.css';
 import { Form, FormGroup, Label, Input, TextArea, Button } from './styles';
 import icon from './calendar.svg';
 
