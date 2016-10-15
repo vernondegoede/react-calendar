@@ -8,24 +8,17 @@ import currentDate from './../../utils/current_date';
 import parseAppointments from './../../utils/parse_appointments';
 import { loadState, saveState } from './../../utils/persistence';
 
-import './App.css';
+import './global_styles';
+import { CalendarWrapper, Wrapper, TodayView, TodaysDate, DateHeader, TodayContainer, CalendarSidebar } from './styles';
 
 const HOURS_IN_DAY = 24;
-const ROW_HEIGHT = 50; // 50px
+const ROW_HEIGHT = 50;
 
 export default class App extends Component {
   constructor (props) {
     super(props);
 
-    // Determine wheter we should load initial component state or load state from localStorage
-    let appointments = [];
-    let storedState = loadState();
-
-    if (!storedState) {
-      appointments = defaultAppointments;
-    }else{
-      appointments = storedState.appointments;
-    }
+    const appointments = this.getInitialAppointments();
 
     this.state = {
       appointments,
@@ -42,6 +35,16 @@ export default class App extends Component {
 
     this.addAppointment = this.addAppointment.bind(this);
     this.removeAppointment = this.removeAppointment.bind(this);
+  }
+
+  getInitialAppointments () {
+    // Determine wheter we should load initial component state or load state from localStorage
+    let storedState = loadState();
+
+    if (!storedState) {
+      return defaultAppointments;
+    }
+    return storedState.appointments;
   }
 
   addAppointment (newAppointment) {
@@ -76,27 +79,27 @@ export default class App extends Component {
     let appointments = parseAppointments(this.state.appointments, HOURS_IN_DAY);
 
     return (
-      <div className="calendar">
+      <CalendarWrapper>
         <Header />
-        <div className="wrapper clearfix">
-          <div className="today calendar--appointments">
-            <div className="today--header">
-              <h2 className="today--date">{this.state.date}</h2>
-            </div>
-            <div className="today--container">
+        <Wrapper>
+          <TodayView>
+            <TodaysDate>
+              <DateHeader>{this.state.date}</DateHeader>
+            </TodaysDate>
+            <TodayContainer>
               <TimeSlotContainer hours={HOURS_IN_DAY} />
               <DayView
                 row_height={ROW_HEIGHT}
                 removeAppointment={this.removeAppointment}
                 appointments={appointments} />
-            </div>
-          </div>
-          <div className="calendar--new-appointment appointment-form">
+            </TodayContainer>
+          </TodayView>
+          <CalendarSidebar>
             <CreateAppointmentForm ref="" onSubmit={this.addAppointment}
               appointment={this.state.newAppointment} />
-          </div>
-        </div>
-      </div>
+          </CalendarSidebar>
+        </Wrapper>
+      </CalendarWrapper>
     )
   }
 }

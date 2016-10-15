@@ -32,6 +32,7 @@ export default class extends Component {
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input type="text" name="title" id="title"
+            required="required"
             className="form-control"
             onChange={ e => this.setState({title: e.currentTarget.value}) }
             value={ this.state.title } />
@@ -39,7 +40,9 @@ export default class extends Component {
 
         <div className="form-group">
           <label htmlFor="start_time_hours">Start time</label>
-          <input type="time" name="start_time_hours" id="start_time_hours"
+          <input type="time" name="start_time_hours"
+            id="start_time_hours"
+            required="required"
             className="form-control"
             onChange={ e => this.setState({start_time_hours: e.currentTarget.value}) }
             value={ this.state.start_time_hours } />
@@ -47,7 +50,9 @@ export default class extends Component {
 
         <div className="form-group">
           <label htmlFor="end_time_hours">End time</label>
-          <input type="time" name="end_time_hours" id="end_time_hours"
+          <input type="time" name="end_time_hours"
+            id="end_time_hours"
+            required="required"
             className="form-control"
             onChange={ e => this.setState({end_time_hours: e.currentTarget.value}) }
             value={ this.state.end_time_hours } />
@@ -57,12 +62,14 @@ export default class extends Component {
           <label htmlFor="description">Description</label>
           <textarea id="description"
             className="form-control"
+            required="required"
             onChange={ e => this.setState({description: e.currentTarget.value}) }
             value={ this.state.description } />
         </div>
 
         <button type="submit" className="btn btn-primary">Save</button>
-        <button type="reset" className="btn btn-secondary" onClick={this.resetForm}>Cancel</button>
+        <button type="reset" className="btn btn-secondary"
+          onClick={this.resetForm}>Cancel</button>
       </form>
     )
   }

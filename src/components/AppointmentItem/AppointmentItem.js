@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './AppointmentItem.css';
 
+import { Wrapper, Inner, Title, Description, DeleteButton } from './styles';
+import deleteIcon from './delete.svg';
+
 export default class AppointmentItem extends Component {
   static propTypes = {
     removeAppointment: React.PropTypes.func.isRequired,
-    appointment: React.PropTypes.object,
+    appointment: React.PropTypes.object.isRequired,
     row_height: React.PropTypes.number.isRequired
   }
 
@@ -31,36 +34,34 @@ export default class AppointmentItem extends Component {
   render () {
     let { appointment } = this.props;
     let { overlappingItems } = appointment;
-
     let width = 100 / overlappingItems;
-    let itemHeight = this.calculateHeight(appointment.start_time, appointment.end_time) + 'px';
-
-    let left = ( width * appointment.position );
 
     let innerStyle = {
-      height: itemHeight
+      height: this.calculateHeight(appointment.start_time, appointment.end_time) + 'px'
     }
 
-    let outerStyle = {
+    let wrapperStyle = {
       ...innerStyle,
       top: this.calculateOffsetTop(appointment.start_time) + 'px',
       width: width + '%',
-      left: left + '%'
+      left: ( width * appointment.position ) + '%'
     }
 
     return (
-      <div className='appointment-item'
-        style={ outerStyle }>
-        <div className="inner" style={ innerStyle }>
+      <Wrapper { ...wrapperStyle }>
+        <Inner { ...innerStyle }>
           <header>
-            <strong className="title">
+            <Title>
               { appointment.title }
-            </strong>
-            <div className="remove-button" onClick={this.removeAppointment}></div>
+            </Title>
+            <DeleteButton
+              image={deleteIcon} onClick={this.removeAppointment} />
           </header>
-          <p className="appointment-item--description">{ appointment.description }</p>
-        </div>
-      </div>
+          <Description>
+            {appointment.description}
+          </Description>
+        </Inner>
+      </Wrapper>
     )
   }
 }
