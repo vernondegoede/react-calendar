@@ -12,11 +12,16 @@ export default class extends Component {
 
     this.state = this.props.appointment;
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+  }
+
+  resetForm (e) {
+    e.preventDefault();
+    this.setState(this.props.appointment);
   }
 
   handleSubmit (e) {
     e.preventDefault();
-
     this.props.onSubmit(this.state);
     this.setState(this.props.appointment);
   }
@@ -57,7 +62,7 @@ export default class extends Component {
         </div>
 
         <button type="submit" className="btn btn-primary">Save</button>
-        <button type="reset" className="btn btn-secondary">Cancel</button>
+        <button type="reset" className="btn btn-secondary" onClick={this.resetForm}>Cancel</button>
       </form>
     )
   }

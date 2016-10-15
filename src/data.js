@@ -14,6 +14,13 @@ export default [
     description: ''
   },
   {
+    id: 5,
+    title: 'all day appointment 2',
+    start_time_hours: '09:00', // 09:00
+    end_time_hours: '19:00', // 19:00
+    description: ''
+  },
+  {
     id: 3,
     title: 'All hands',
     start_time_hours: '14:00', //14:00

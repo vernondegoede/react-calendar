@@ -7,13 +7,17 @@ import Header from './../Header/Header';
 import currentDate from './../../utils/current_date';
 import parseAppointments from './../../utils/parse_appointments';
 import { loadState, saveState } from './../../utils/persistence';
+
 import './App.css';
+
 const HOURS_IN_DAY = 24;
+const ROW_HEIGHT = 50; // 50px
 
 export default class App extends Component {
   constructor (props) {
     super(props);
 
+    // Determine wheter we should load initial component state or load state from localStorage
     let appointments = [];
     let storedState = loadState();
 
@@ -42,7 +46,7 @@ export default class App extends Component {
 
   addAppointment (newAppointment) {
     let lastAppointment = [...this.state.appointments].pop();
-    let newAppointmentID = 1;
+    let newAppointmentID = 1; // Default
 
     if (this.state.appointments.length > 0) {
       newAppointmentID = lastAppointment.id + 1;
@@ -82,7 +86,7 @@ export default class App extends Component {
             <div className="today--container">
               <TimeSlotContainer hours={HOURS_IN_DAY} />
               <DayView
-                row_height={50}
+                row_height={ROW_HEIGHT}
                 removeAppointment={this.removeAppointment}
                 appointments={appointments} />
             </div>
