@@ -1,14 +1,17 @@
 import mapAppointmentsDuration from './calculate_duration';
 
-const mapOverlappingAppointments = (appointments) => {
-  appointments.forEach((currentAppointment) => {
+const mapOverlappingAppointments = appointments => {
+  appointments.forEach(currentAppointment => {
     currentAppointment.position = -1;
 
-    appointments.forEach((appointment) => {
+    console.log('currentAppointment', currentAppointment);
+
+    appointments.forEach(appointment => {
       if (currentAppointment.start_time < appointment.end_time &&
         appointment.start_time < currentAppointment.end_time &&
-      appointment.duration >= currentAppointment.duration) {
-            currentAppointment.position++;
+        appointment.duration >= currentAppointment.duration)
+        {
+          currentAppointment.position++;
         }
       });
     });
@@ -27,9 +30,10 @@ const mapOverlappingAppointments = (appointments) => {
       });
     }
 
-    hours.forEach((singleHour) => {
+    hours.forEach(singleHour => {
       let hourInMinutes = ( singleHour.hour * 60 );
       let itemsPerHour = 0;
+
       appointments.forEach((appointment) => {
         appointment.overlappingAppointments = [];
         if (appointment.start_time <= hourInMinutes && appointment.end_time >= hourInMinutes) {
@@ -41,10 +45,10 @@ const mapOverlappingAppointments = (appointments) => {
       singleHour.appointmentsInHour = itemsPerHour;
     });
 
-    hours.forEach((singleHour) => {
+    hours.forEach(singleHour => {
       let hourInMinutesOffset = ( singleHour.hour * 60 );
 
-      appointments.forEach((appointment) => {
+      appointments.forEach(appointment => {
         if (appointment.start_time <= hourInMinutesOffset &&
           appointment.end_time >= hourInMinutesOffset &&
           singleHour.appointmentsInHour > appointment.overlappingItems) {

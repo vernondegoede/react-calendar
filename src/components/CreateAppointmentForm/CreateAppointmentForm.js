@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import './CreateAppointmentForm.css';
 
 export default class extends Component {
   static propTypes = {
     onSubmit: React.PropTypes.func.isRequired,
-    appointment: React.PropTypes.object.isRequired
+    appointment: React.PropTypes.object.isRequired,
+    start_time: React.PropTypes.number,
+    end_time: React.PropTypes.number
   }
 
   constructor (props) {
@@ -18,11 +19,6 @@ export default class extends Component {
   handleSubmit (e) {
     e.preventDefault();
 
-    this.setState({
-      start_time: moment.duration(this.state.start_time, 'hours').asMinutes(),
-      end_time: moment.duration(this.state.end_time, 'hours').asMinutes()
-    });
-
     this.props.onSubmit(this.state);
     this.setState(this.props.appointment);
   }
@@ -33,6 +29,7 @@ export default class extends Component {
         <div className="form-group">
           <label htmlFor="title">Title</label>
           <input type="text" name="title" id="title"
+            className="form-control"
             onChange={ e => this.setState({title: e.currentTarget.value}) }
             value={ this.state.title } />
         </div>
@@ -40,6 +37,7 @@ export default class extends Component {
         <div className="form-group">
           <label htmlFor="starttime">Start time</label>
           <input type="time" name="start_time" id="start_time"
+            className="form-control"
             onChange={ e => this.setState({start_time: e.currentTarget.value}) }
             value={ this.state.start_time } />
         </div>
@@ -47,6 +45,7 @@ export default class extends Component {
         <div className="form-group">
           <label htmlFor="end_time">End time</label>
           <input type="time" name="end_time" id="end_time"
+            className="form-control"
             onChange={ e => this.setState({end_time: e.currentTarget.value}) }
             value={ this.state.end_time } />
         </div>
@@ -54,6 +53,7 @@ export default class extends Component {
         <div className="form-group">
           <label htmlFor="description">Description</label>
           <textarea id="description"
+            className="form-control"
             onChange={ e => this.setState({description: e.currentTarget.value}) }
             value={ this.state.description } />
         </div>

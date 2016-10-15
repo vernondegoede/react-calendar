@@ -26,5 +26,12 @@ export default [
     start_time: 780, // 13:00
     end_time: 900, // 15:00
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus neque id felis blandit facilisis. Integer mollis, dolor eget dictum blandit, justo velit dapibus neque, ac placerat.'
+  },
+  {
+    id: 5,
+    title: 'Overlapping',
+    start_time: 690, // 13:00
+    end_time: 750, // 15:00
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus neque id felis blandit facilisis. Integer mollis, dolor eget dictum blandit, justo velit dapibus neque, ac placerat.'
   }
 ];

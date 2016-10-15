@@ -4,7 +4,7 @@ import TimeSlotContainer from './../TimeSlotContainer/TimeSlotContainer';
 import DayView from './../DayView/DayView';
 import CreateAppointmentForm from './../CreateAppointmentForm/CreateAppointmentForm';
 import Header from './../Header/Header';
-import moment from 'moment';
+import getCurrentDate from './../../utils/current_date';
 
 import './App.css';
 
@@ -16,7 +16,7 @@ export default class App extends Component {
 
     this.state = {
       appointments,
-      date: moment().format('D MMMM Y'),
+      date: getCurrentDate(),
       newAppointment: {
         title: '',
         start_time: '',
@@ -50,7 +50,7 @@ export default class App extends Component {
             </div>
             <div className="today--container">
               <TimeSlotContainer hours={HOURS_IN_DAY} />
-              <DayView hours={HOURS_IN_DAY} appointments={this.state.appointments} />
+              <DayView row_height={50} hours={HOURS_IN_DAY} appointments={this.state.appointments} />
             </div>
           </div>
           <div className="calendar--new-appointment appointment-form">

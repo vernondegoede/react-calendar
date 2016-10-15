@@ -3,5 +3,5 @@ export default (appointments) => {
   let firstStartTime = startTimes.reduce((a, b) => {
     return Math.min(a, b)
   }, Infinity);
-  return appointments.find(item => item.start_time = firstStartTime);
+  return appointments.find(item => item.start_time === firstStartTime);
 }
