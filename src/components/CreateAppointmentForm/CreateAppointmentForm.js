@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './CreateAppointmentForm.css';
+import { Form, FormGroup, Label, Input, TextArea, Button } from './styles';
+import icon from './calendar.svg';
 
 export default class extends Component {
   static propTypes = {
@@ -28,49 +30,54 @@ export default class extends Component {
 
   render () {
     return (
-      <form onSubmit={this.handleSubmit} className="appointment-form__inner">
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" id="title"
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="title">
+            Title
+          </Label>
+          <Input type="text" id="title"
             required="required"
-            className="form-control"
             onChange={ e => this.setState({title: e.currentTarget.value}) }
             value={ this.state.title } />
-        </div>
+        </FormGroup>
 
-        <div className="form-group">
-          <label htmlFor="start_time_hours">Start time</label>
-          <input type="time" name="start_time_hours"
+        <FormGroup>
+          <Label htmlFor="start_time_hours">
+            Start time
+          </Label>
+          <Input type="time"
             id="start_time_hours"
             required="required"
-            className="form-control"
+            icon={icon}
             onChange={ e => this.setState({start_time_hours: e.currentTarget.value}) }
             value={ this.state.start_time_hours } />
-        </div>
+        </FormGroup>
 
-        <div className="form-group">
-          <label htmlFor="end_time_hours">End time</label>
-          <input type="time" name="end_time_hours"
+        <FormGroup>
+          <Label htmlFor="end_time_hours">End time</Label>
+          <Input type="time"
+            icon={icon}
             id="end_time_hours"
             required="required"
-            className="form-control"
             onChange={ e => this.setState({end_time_hours: e.currentTarget.value}) }
             value={ this.state.end_time_hours } />
-        </div>
+        </FormGroup>
 
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea id="description"
-            className="form-control"
-            required="required"
+        <FormGroup>
+          <Label htmlFor="description">Description</Label>
+          <TextArea id="description"
             onChange={ e => this.setState({description: e.currentTarget.value}) }
             value={ this.state.description } />
-        </div>
+        </FormGroup>
 
-        <button type="submit" className="btn btn-primary">Save</button>
-        <button type="reset" className="btn btn-secondary"
-          onClick={this.resetForm}>Cancel</button>
-      </form>
+        <Button type="submit">
+          Save
+        </Button>
+        <Button type="reset"
+          onClick={this.resetForm}>
+          Cancel
+        </Button>
+      </Form>
     )
   }
 }

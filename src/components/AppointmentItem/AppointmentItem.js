@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './AppointmentItem.css';
-
 import { Wrapper, Inner, Title, Description, DeleteButton } from './styles';
 import deleteIcon from './delete.svg';
 
