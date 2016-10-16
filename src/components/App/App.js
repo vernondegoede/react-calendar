@@ -3,6 +3,7 @@ import defaultAppointments from './../../data';
 import TimeSlotContainer from './../TimeSlotContainer/TimeSlotContainer';
 import DayView from './../DayView/DayView';
 import CreateAppointmentForm from './../CreateAppointmentForm/CreateAppointmentForm';
+import CurrentTimeIndicator from './../CurrentTimeIndicator/CurrentTimeIndicator';
 import Header from './../Header/Header';
 import currentDate from './../../utils/current_date';
 import parseAppointments from './../../utils/parse_appointments';
@@ -87,6 +88,7 @@ export default class App extends Component {
               <DateHeader>{this.state.date}</DateHeader>
             </TodaysDate>
             <TodayContainer>
+              <CurrentTimeIndicator row_height={ROW_HEIGHT} />
               <TimeSlotContainer hours={HOURS_IN_DAY} />
               <DayView
                 row_height={ROW_HEIGHT}

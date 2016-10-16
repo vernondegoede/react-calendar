@@ -12,6 +12,7 @@ const TimeSlot = styled.div`
 const Hour = styled.div`
 display: inline-block;
 position: relative;
+width: 35px;
 
   &:before {
     content: "";

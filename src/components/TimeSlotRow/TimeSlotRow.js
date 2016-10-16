@@ -15,7 +15,7 @@ export default class TimeSlotRow extends Component {
     return (
       <TimeSlot>
         <Hour>
-          {hour.format('HH:mm')}
+          {hour.format('HH')}
         </Hour>
       </TimeSlot>
     )
