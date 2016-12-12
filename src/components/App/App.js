@@ -3,7 +3,6 @@ import defaultAppointments from './../../data';
 import TimeSlotContainer from './../TimeSlotContainer/TimeSlotContainer';
 import DayView from './../DayView/DayView';
 import CreateAppointmentForm from './../CreateAppointmentForm/CreateAppointmentForm';
-import CurrentTimeIndicator from './../CurrentTimeIndicator/CurrentTimeIndicator';
 import Header from './../Header/Header';
 import currentDate from './../../utils/current_date';
 import parseAppointments from './../../utils/parse_appointments';
@@ -18,12 +17,12 @@ const ROW_HEIGHT = 50;
 export default class App extends Component {
   constructor (props) {
     super(props);
-
     const appointments = this.getInitialAppointments();
 
     this.state = {
       appointments,
       date: currentDate(),
+      sidebar_open: false,
       newAppointment: {
         title: '',
         start_time: 0,
@@ -36,6 +35,15 @@ export default class App extends Component {
 
     this.addAppointment = this.addAppointment.bind(this);
     this.removeAppointment = this.removeAppointment.bind(this);
+    this.toggleSidebar = this.toggleSidebar.bind(this);
+  }
+
+  toggleSidebar (e) {
+    e.preventDefault();
+    this.setState({
+      sidebar_open: !this.state.sidebar_open
+    });
+    console.log('this.state', this.state);
   }
 
   getInitialAppointments () {
@@ -88,7 +96,7 @@ export default class App extends Component {
               <DateHeader>{this.state.date}</DateHeader>
             </TodaysDate>
             <TodayContainer>
-              <CurrentTimeIndicator row_height={ROW_HEIGHT} />
+
               <TimeSlotContainer hours={HOURS_IN_DAY} />
               <DayView
                 row_height={ROW_HEIGHT}
