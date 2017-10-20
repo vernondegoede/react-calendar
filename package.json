@@ -1,6 +1,6 @@
 {
-  "name": "blendle-calendar",
-  "version": "0.0.1",
+  "name": "react-calendar",
+  "version": "1.0.0",
   "private": true,
   "homepage": "./",
   "devDependencies": {

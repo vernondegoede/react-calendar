@@ -25,20 +25,6 @@ const Inner = styled.div`
   margin-left: 5px;
   height: ${props => props.focussed ? 'auto' : props.height + 'px'};
   min-height: ${props => props.height}px;
-
-  &:before {
-    content: '';
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: ${props => props.focussed ? 'none' : 'linear-gradient(transparent 70%, rgba(227, 70, 65, 100))'};
-    width: 90%;
-    left: 5%;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-  }
 `
 
 const Title = styled.strong`
